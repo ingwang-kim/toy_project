@@ -13,6 +13,13 @@ def home():
 def index2():
     return render_template('index2.html')
 
+@app.route('/page3')
+def index3():
+    return render_template('index3.html')
+
+@app.route('/page4')
+def index4():
+    return render_template('index4.html')
 
 
 @app.route("/bucket", methods=["POST"])
