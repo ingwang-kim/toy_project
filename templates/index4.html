@@ -14,7 +14,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap" rel="stylesheet">
 
-    <title>재료 구매 리스트</title>
+    <title>재료 리스트</title>
 
     <style>
         * {
@@ -71,6 +71,7 @@
         }
 
         .mybox > li > h2 {
+            width: 100px;
             max-width: 75%;
             font-size: 20px;
             font-weight: 500;
@@ -81,6 +82,22 @@
         .mybox > li > h2.done {
             text-decoration: line-through
         }
+
+        .mybox > li > button {
+            width: 150px;
+            margin-left: 20px;
+        }
+        .li{
+              display: flex;
+            flex-direction: row;
+            text-align: center;
+
+        }
+        .li>h2{
+            width: 100px;
+            margin: auto;
+        }
+
     </style>
     <script>
         $(document).ready(function () {
@@ -88,73 +105,65 @@
         });
 
         function show_bucket() {
-            $('#all_bucket').empty()
+            $('#prep_list').empty()
             $.ajax({
                 type: "GET",
-                url: "/bucket",
+                url: "http://localhost:5000/page4/cook",
                 data: {},
                 success: function (response) {
-                    let rows = response['buckets']
-                    for(let i =0;i<rows.length;i++){
-                        let bucket =rows[i]['bucket']
-                        let num = rows[i]['num']
-                        let done = rows[i]['done']
+                    let cookName = $('#cookName').val()
+                    let rows = response['cooks']
+                    let target = rows.filter(val => val.name == cookName);
+                    console.log(target)
+                    let prep1 = target[0]['prep1']
+                    let prep2 = target[0]['prep2']
+                    let prep3 = target[0]['prep3']
+                    let prep4 = target[0]['prep4']
 
-                        let temp_html = ` `
-                        if (done == 0) {
-                            temp_html = `
-                                        <li>
-                                        <h2>✅ ${bucket}</h2>
-                            <button onclick="done_bucket(${num})" type="button" class="btn btn-outline-primary">완료!</button>
+                    let temp_html = `<li class="li">
+                                <h2 class = "h2">${prep1}</h2>
+                            </li>
+                            <li class="li">
+                                <h2>${prep2}</h2>
+
+                            </li>
+                            <li class="li">
+                                <h2>${prep3}</h2>
+
+                            </li>
+                            <li class="li">
+                                <h2>${prep4}</h2>
+
                             </li>`
-                        } else {
-                            temp_html= `<li>
-                                    <h2 class="done">✅ ${bucket}</h2>
-                                </li>`
-                        }
-                        $('#bucket-list').append(temp_html)
+
+
+
+                        $('#prep_list').append(temp_html)
                     }
-                }
+
             });
         }
 
 
-        function done_bucket(num) {
-            $.ajax({
 
-                type: "POST",
-                url: "/bucket/done",
-                data: {num_give: num},
-                success: function (response) {
-                    alert(response["msg"])
-                    window.location.reload()
-                }
-            });
-        }
     </script>
 </head>
 <body>
 <div class="mypic">
-    <h1>재료 쇼핑 리스트</h1>
+    <h1>재료 리스트</h1>
 </div>
-<div class="mybox" id="bucket-list">
-    <li>
-        <h2>재료1</h2>
-        <button onclick="done_bucket(${num})" type="button" class="btn btn-outline-primary">완료!</button>
-    </li>
 
+<div class="mybox">
     <li>
-        <h2>재료2</h2>
-        <button onclick="done_bucket(${num})" type="button" class="btn btn-outline-primary">완료!</button>
+        <h2 class="">요리명</h2>
+        <input type="text" class="form-control" id="cookName">
+        <button onclick="show_bucket()" type="button" class="btn btn-outline-primary">불러오기</button>
+
     </li>
-    <li>
-        <h2>재료3</h2>
-        <button onclick="done_bucket(${num})" type="button" class="btn btn-outline-primary">완료!</button>
-    </li>
-    <li>
-        <h2>재료4</h2>
-        <button onclick="done_bucket(${num})" type="button" class="btn btn-outline-primary">완료!</button>
-    </li>
+    <div id="prep_list" class="prep_list">
+
+    </div>
+
 
 </div>
 </body>

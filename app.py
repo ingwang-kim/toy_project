@@ -36,6 +36,7 @@ def cook_post():
     prep2 = request.form["prep2_give"]
     prep3 = request.form["prep3_give"]
     prep4 = request.form["prep4_give"]
+    count = list(db.bucket.find({}, {'_id': False}))
 
 
 
@@ -53,24 +54,30 @@ def cook_post():
     return jsonify({'msg': '등록 완료'})
 
 
-@app.route("/bucket/done", methods=["POST"])
+@app.route("/page4/complete", methods=["POST"])
 def bucket_done():
     num_receive = request.form['num_give']
-    db.bucket.update_one({'num': int(num_receive)}, {'$set': {'done': 1}})
-    return jsonify({'msg': '버킷 완료'})
+    db.cook.update_one({'num': int(num_receive)}, {'$set': {'done': 1}})
+    return jsonify({'msg': '구매 완료'})
 
 
-@app.route("/bucket/cancel", methods=["POST"])
+@app.route("/page4/cancel", methods=["POST"])
 def bucket_cancel():
     num_receive = request.form['num_give']
-    db.bucket.update_one({'num': int(num_receive)}, {'$set': {'done': 0}})
-    return jsonify({'msg': '버킷 취소'})
+    db.cook.update_one({'num': int(num_receive)}, {'$set': {'done': 0}})
+    return jsonify({'msg': '구매 취소'})
 
 
 @app.route("/page3/cook", methods=["GET"])
 def bucket_get():
     cook_list = list(db.cook.find({}, {'_id': False}))
     return jsonify({'cooks': cook_list})
+
+@app.route("/page4/cook", methods=["GET"])
+def cook_get():
+    cook_list = list(db.cook.find({}, {'_id': False}))
+    return jsonify({'cooks': cook_list})
+
 
 
 
