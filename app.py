@@ -37,6 +37,8 @@ def cook_post():
     prep3 = request.form["prep3_give"]
     prep4 = request.form["prep4_give"]
 
+
+
     doc = {
         'name': cook_name,
         'image': image_url,
@@ -44,6 +46,7 @@ def cook_post():
         'prep2': prep2,
         'prep3': prep3,
         'prep4': prep4,
+
     }
     db.cook.insert_one(doc)
 
@@ -68,6 +71,7 @@ def bucket_cancel():
 def bucket_get():
     cook_list = list(db.cook.find({}, {'_id': False}))
     return jsonify({'cooks': cook_list})
+
 
 
 if __name__ == '__main__':

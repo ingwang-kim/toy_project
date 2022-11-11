@@ -132,6 +132,7 @@
             let prep2 = $('#prep2').val()
             let prep3 = $('#prep3').val()
             let prep4 = $('#prep4').val()
+
             $.ajax({
                 type: "POST",
                 url: "/page2/cook",
@@ -141,7 +142,7 @@
                     prep1_give : prep1,
                     prep2_give : prep2,
                     prep3_give : prep3,
-                    prep4_give : prep4,
+                    prep4_give : prep4
 
                 },
                 success: function (response) {
