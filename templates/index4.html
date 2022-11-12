@@ -109,7 +109,7 @@
             $('#prep_list').empty()
             $.ajax({
                 type: "GET",
-                url: "http://localhost:5000/page4/cook",
+                url: "/page4/cook",
                 data: {},
                 success: function (response) {
                     let cookName = $('#cookName').val()

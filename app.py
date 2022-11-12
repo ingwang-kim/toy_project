@@ -36,7 +36,7 @@ def cook_post():
     prep2 = request.form["prep2_give"]
     prep3 = request.form["prep3_give"]
     prep4 = request.form["prep4_give"]
-    count = list(db.bucket.find({}, {'_id': False}))
+
 
 
 
