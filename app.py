@@ -10,25 +10,29 @@ db = client.dbsparta
 
 @app.route('/')
 def home():
+    return render_template('aaa.html')
+
+@app.route('/page2')
+def index():
     return render_template('index.html')
 
 
-@app.route('/page2')
+@app.route('/page3')
 def index2():
     return render_template('index2.html')
 
 
-@app.route('/page3')
+@app.route('/page4')
 def index3():
     return render_template('index3.html')
 
 
-@app.route('/page4')
+@app.route('/page5')
 def index4():
     return render_template('index4.html')
 
 
-@app.route("/page2/cook", methods=["POST"])
+@app.route("/page3/cook", methods=["POST"])
 def cook_post():
     cook_name = request.form["cookName_give"]
     image_url = request.form["imageUrl_give"]
