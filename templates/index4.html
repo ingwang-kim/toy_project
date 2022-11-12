@@ -88,7 +88,7 @@
             margin-left: 20px;
         }
         .li{
-              display: flex;
+            display: flex;
             flex-direction: row;
             text-align: center;
             margin-bottom: 20px;
@@ -112,16 +112,20 @@
                 url: "/page4/cook",
                 data: {},
                 success: function (response) {
-                    let cookName = $('#cookName').val()
                     let rows = response['cooks']
+                    let cookName = $('#cookName').val()
                     let target = rows.filter(val => val.name == cookName);
-                    console.log(target)
-                    let prep1 = target[0]['prep1']
-                    let prep2 = target[0]['prep2']
-                    let prep3 = target[0]['prep3']
-                    let prep4 = target[0]['prep4']
+                    for (let i = 0; i < target.length; i++) {
+                        let prep1 = target[i]['prep1']
+                        let prep2 = target[i]['prep2']
+                        let prep3 = target[i]['prep3']
+                        let prep4 = target[i]['prep4']
+                        console.log(target)
 
-                    let temp_html = `<li class="li">
+                        let temp_html = `
+                            <li>=====================${i+1}번째 요리법 재료=======================</li>
+
+                            <li class="li">
                                 <h2 >재료1 : </h2>
                                 <h2 >${prep1}</h2>
                             </li>
@@ -139,16 +143,17 @@
                             <h2 >재료4 : </h2>
                                 <h2>${prep4}</h2>
 
-                            </li>`
-
+                            </li>
+                            <li>========================================================</li>
+`
 
 
                         $('#prep_list').append(temp_html)
                     }
+                }
 
             });
         }
-
 
 
     </script>
